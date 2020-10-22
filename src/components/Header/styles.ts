@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface ContainerProps {
   size?: 'small' | 'large';
+  page?: string;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -22,6 +23,7 @@ export const Container = styled.div<ContainerProps>`
         text-decoration: none;
         font-size: 16px;
         transition: opacity 0.2s;
+        border-bottom: 0px solid #fff;
 
         & + a {
           margin-left: 32px;
