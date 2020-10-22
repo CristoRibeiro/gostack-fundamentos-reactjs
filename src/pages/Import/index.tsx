@@ -21,21 +21,29 @@ interface FileProps {
 
 const Import: React.FC = () => {
   const [uploadedFiles, setUploadedFiles] = useState<FileProps[]>([]);
+  const [msgRetorno, setMsgRetorno] = useState('');
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
     const data = new FormData();
+
+    if (uploadedFiles.length <= 0) {
+      setMsgRetorno('Nenhum arquivo carregado!');
+      return;
+    }
     const file = uploadedFiles[0];
     data.append('file', file.file);
 
     try {
       await api.post('/transactions/import', data);
+      setMsgRetorno('Enviado com sucesso!');
     } catch (err) {
-      console.log(err.response.error);
+      setMsgRetorno('Ocorreu uma falha ao realizar o upload do arquivo!');
     }
   }
 
   function submitFile(files: File[]): void {
+    setMsgRetorno('');
     const filesUpload = files.map(file => ({
       file,
       name: file.name,
@@ -63,6 +71,7 @@ const Import: React.FC = () => {
               Enviar
             </button>
           </Footer>
+          {msgRetorno && <span>{msgRetorno}</span>}
         </ImportFileContainer>
       </Container>
     </>

@@ -41,6 +41,10 @@ export const Footer = styled.section`
     }
   }
 
+  span {
+    color: green;
+  }
+
   button {
     background: #ff872c;
     color: #fff;
